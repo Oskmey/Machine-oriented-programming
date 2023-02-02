@@ -25,6 +25,8 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 //Mikrokontrollerns input register GPIO_IDR denna är kolomnen för key 
 #define GPIO_ODR_HIGH ((volatile unsigned int *)PORT_D +0x14) 
 
+//Mikrokontrollerns input register GPIO_IDR denna är raden för key 
+#define GPIO_IDR_HIGH ((volatile unsigned int *)PORT_D +0x10) 
 }
 
 
@@ -48,11 +50,25 @@ void kdbActivate(unsigned int row) { //hjälp rutin (MULTIPLEX SAKER FATTAR EJ)
 			break;
 		case 4: *GPIO_ODR_HIGH = 0x80; 
 			break;
-		default: **GPIO_ODR_HIGH = 0x80;
+		default: *GPIO_ODR_HIGH = 0x80;
+			break;
 	}
 }
 
-int kbdGetCol(void)
+int kbdGetCol(void){
+	unsigned char c; 
+	c = *GPIO_IDR_HIGH; //rad värdet placeras i c 
+	if(c & 8)
+		return 4;
+	if(c & 4)
+		return 3;
+	if(c&2)
+		return 2;
+	if(c&1)
+		return 1;
+	return 0; 
+		
+}
 
 void main(void){
 	app_init();
@@ -60,4 +76,3 @@ void main(void){
 		out7seg(keyb());
 	}
 }
-
