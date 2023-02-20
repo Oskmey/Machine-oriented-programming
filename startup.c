@@ -64,6 +64,9 @@ void graphic_pixel_clear(int x, int y){
 	
 }
 
+/* Global____________________________________________________________________________________________________________________________*/
+int gameover = 0;
+
 /* keyboard____________________________________________________________________________________________________________________________*/
 
 void app_init(void){
@@ -184,6 +187,10 @@ typedef struct{
 
 /* Pong_logic____________________________________________________________________________________________________________________________*/
 
+void gameEnd(void){
+	gameover = 1;
+}
+
 
 void draw_object(POBJECT o)
 {
@@ -216,7 +223,7 @@ void clear_object(POBJECT o)
 }
 
 
-void move_paddelobject (POBJECT o){
+void move_spiderobject (POBJECT o){
 	int dx = o -> dirx;
 	int dy = o -> diry;
 	int x = o -> posx;
@@ -225,12 +232,18 @@ void move_paddelobject (POBJECT o){
 	o -> posx = x + (o->dirx);
 	o -> posy = y + (o->diry);
 	if(o->posy < 1){
-		o->diry = 0;
-		o->posy = 1;
+		gameEnd();
 	}
-	if(o->posy > (64-9)){
-		o->diry = 0;
-		o->posy = 64-9;
+	if(o->posy > (57)){
+		gameEnd();
+	}
+	
+	if(o->posx < 1){
+		gameEnd();
+	}
+	if(o->posx > (119)){
+		gameEnd();
+	
 	}
 	
 	draw_object(o);
@@ -255,7 +268,9 @@ void move_ballobject (POBJECT o){
 	if(o->posx < 1){
 		o->dirx = (- o->dirx);
 	}
-	
+	if(o->posx > 120){
+		o->dirx = (- o->dirx);
+	}
 	if(o->posy < 1){
 		o->diry = (- o->diry);
 	}
@@ -278,13 +293,16 @@ int pixel_overlap(POBJECT o1, POBJECT o2) {
   return 0;
 }
 
+
+
+
 /* sprites____________________________________________________________________________________________________________________________*/
-GEOMETRY paddle_geometry = {
-	29,
+GEOMETRY spider_geometry = {
+	22,
 	4,4,
 	{
-		{0,0},{1,0},{2,0},{3,0},{4,0},{0,8},{1,8},{2,8},{3,8},{4,8},{2,3},{2,4},{2,5},{0,1},{0,2},{0,3},{0,4},{0,5},{0,6},{0,7},{0,8},
-		{4,0},{4,1},{4,2},{4,3},{4,4},{4,5},{4,6},{4,7}
+		{2,0},{3,0},{1,1},{4,1},{0,2},{1,2},{2,2},{3,2},{4,2},{5,2},{3,0},{2,3},{3,3},{3,5},{1,4},{4,4},{2,5},{3,5},{1,6},{4,6},{0,7},
+		{5,7}
 	}
 };
 
@@ -299,13 +317,13 @@ GEOMETRY ball_geometry = {
 
 
 /*Objects____________________________________________________________________________________________________________________________*/
-OBJECT paddle = {
-	&paddle_geometry,
+OBJECT spider = {
+	&spider_geometry,
 	0,0,
-	122,32,
+	64,32,
 	draw_object,
 	clear_object,
-	move_paddelobject,
+	move_spiderobject,
 	set_object_speed,
 };
 
@@ -327,32 +345,33 @@ OBJECT ball = {
 
 void main(void){
 	char c;
-	POBJECT p = &paddle;
+	POBJECT s = &spider;
 	POBJECT b = &ball;
 	app_init();
 	graphic_initalize();
 	graphic_clear_screen();
-	while(1){
-		p -> move(p);
-		if(pixel_overlap(p, b)){
-			b -> dirx = (- b -> dirx);
-			b -> diry =	(b -> diry);
-		}
+	while(!gameover){
+		s -> move(s);
 		b -> move(b);
 		delay_mili(20);
 		c = keyb();
 		switch(c){
-			case 4:		p->set_speed(p, 0, -3); //upp
+			case 4:		s->set_speed(s, 0, -2); //upp
 				break;
-			case 12:	p->set_speed(p, 0, 3); //ner
+			case 12:	s->set_speed(s, 0, 2); //ner
 				break;
-			case 255:	p->set_speed(p, 0, 0); 	//stanna
+			case 7:	s->set_speed(s, -2, 0); //vänster
 				break;
-			case 6:		b->posx = 10; b->posy = 32; //reset
-				graphic_clear_screen();				
+			case 9:	s->set_speed(s, 2, 0); //ner
+				break;
+			case 255:	s->set_speed(s, 0, 0); 	//stanna
 				break;
 
 		}
+		if(pixel_overlap(s, b)){
+			break;
+		}
+		delay_mili(20);
 	}
 	
 		
