@@ -77,7 +77,7 @@ void EXTI3_handler(void){
 		*EXTI_PR |=~EXTI3_IRQ_BPOS; //Stäng av flag
 		if(*GPIO_IDRLOW_E & IRQ0){
 			*GPIO_ODRLOW_E |=RTS_IRQ0; //Skickar 1 till RTS 
-			*GPIO_ODRLOW_E &=~RTS_IRQ0; //Stänger av RTS vi är alltså avbrottet är hanterat 
+			*GPIO_ODRLOW_E &=~RTS_IRQ0; //Stänger av RTS 
 			count++;
 		}
 		if(*GPIO_IDRLOW_E & IRQ1){
