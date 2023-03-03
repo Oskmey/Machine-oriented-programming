@@ -2,9 +2,13 @@
  * 	startup.c
  *
  */
-#include "Displaydriver.h".
+#include "Displaydriver.h"
+#include "KeyboardDriver.c"
 #include "GPIO.h"
 #include "SYSTICK.h"
+#include "Objects.h"
+
+
 __attribute__((naked)) __attribute__((section (".start_section")) )
 void startup ( void )
 {
@@ -14,8 +18,6 @@ __asm__ volatile(" BL main\n");					/* call main */
 __asm__ volatile(".L1: B .L1\n");				/* never return */
 }
 
-#define PORT_E (*((volatile GPIO*) 0x40021000)) // PORT_E address becomes an GPIO pointer 
-#define PORT_D (*((volatile GPIO*) 0x40020C00))
 
 
 
