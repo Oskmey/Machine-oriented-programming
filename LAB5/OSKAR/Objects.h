@@ -27,3 +27,8 @@ typedef struct{
 	void (* move)(struct tObj *);
 	void (* set_speed)(struct tObj *, int,int);
 }OBJECT, *POBJECT;
+
+typedef struct polygonpoint{
+	char x,y;
+	struct polygonpoint* next;
+}POLYPOINT, *PPOLYPOINT;

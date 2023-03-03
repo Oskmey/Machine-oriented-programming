@@ -2,6 +2,8 @@
 #pragma once
 #define PORT_E (*((volatile GPIO*) 0x40021000))  
 #define PORT_D (*((volatile GPIO*) 0x40020C00))
+
+
 typedef volatile struct{     
 	unsigned int MODER;         //In-out
 	unsigned short OTYPER;	   //Push-open

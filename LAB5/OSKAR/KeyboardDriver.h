@@ -1,5 +1,4 @@
 #pragma once
-
-int kbdGetCol(void);
-void kdbActivate(unsigned int row);
-char keyb(void);
+int kbdGetCol(char HIGH);
+void kdbActivate(unsigned int row, char HIGH);
+char keyb(char HIGH);
