@@ -24,6 +24,11 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 #define DELAY_COUNT_DEFAULT (1/FPS)*1000000
 #define MICRO_SEC 168
 
+POBJECT p = &paddl1;
+POBJECT q = &paddle2;
+POBJECT b = &ball;
+
+
 typedef struct{
 	char left_score;
 	char right_score;
@@ -33,6 +38,12 @@ typedef struct{
 
 SCORE score = {0, 0};
 int DELAY_COUNT = DELAY_COUNT_DEFAULT;
+
+draw_objects(){
+	draw_object(p);
+	draw_object(q);
+	draw_object(b);
+}
 
 
 void render_frame(void)
@@ -46,7 +57,7 @@ void render_frame(void)
 	}
 	else{
 		systick.CTRL |= 5;//Startar klockan för att få hur länge det tar att dra saker, men stänger av interrupt
-		//Draw stuff here
+		draw_objects();
 		int sys_val = systick.VAL;//Tar hur länge det tog att rita
 		sys_val &= -(255<<24);//Blankar ut de högsta värdena just in case
 		setup_ms_delay();
@@ -72,7 +83,6 @@ void init_SCB(void)
 
 void init_app(void)//Kasta in vad mer behövs för att starta här
 {
-	
 	init_GPIO();
 	init_SCB();
 }
@@ -82,6 +92,11 @@ void init_app(void)//Kasta in vad mer behövs för att starta här
 
 void main(void)
 {
+	graphic_initalize();
+	graphic_clear_screen();
 	init_app();
-	
+	while(1){
+		p -> move(p);
+		q -> move(p);
+	}
 };
