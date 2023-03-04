@@ -36,7 +36,7 @@ void delay_micro(unsigned int us){
 void setup_ms_delay(void)
 {
 	systick.CTRL &= ~7;//Gör det såhär om vi ska använda andra bits
-	systick.LOAD = 168 - 1;
+	systick.LOAD = 16800 - 1;
 	systick.VAL = 0;
 	systick.CTRL |= 7;
 }

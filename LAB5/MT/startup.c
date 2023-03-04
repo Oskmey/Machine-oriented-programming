@@ -21,7 +21,7 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 }
 
 #define FPS 60
-#define DELAY_COUNT_DEFAULT (1/FPS)*1000000
+#define DELAY_COUNT_DEFAULT (500/FPS)
 #define MICRO_SEC 168
 
 POBJECT p = &paddle1;
@@ -42,9 +42,10 @@ typedef struct{
 
 
 SCORE score = {0, 0};
-int DELAY_COUNT = DELAY_COUNT_DEFAULT;
+int DELAY_COUNT = 0;
 
 draw_objects(){
+	graphic_clear_screen();
 	draw_object(p);
 	draw_object(q);
 	draw_object(b);
@@ -54,13 +55,13 @@ KB_DIR* translate_KB(char input){
 	KB_DIR dir = {0,0};
 	KB_DIR* output = &dir;
 	switch(input){
-		case 1:output->y = -3;
+		case 5:output->y = -3;
 		break;
 		
-		case 9:output->y = 3;
+		case 13:output->y = 3;
 		break;
 		
-		case 5:
+		case 55:
 		//Reset?
 		break;
 		
@@ -83,6 +84,7 @@ void update_paddle_speed(void)
 
 void render_frame(void)
 {
+	int a = DELAY_COUNT;
 	systick.CTRL &= -(7);
 	systick.VAL = 0;
 	
@@ -91,6 +93,7 @@ void render_frame(void)
 		setup_ms_delay();
 	}
 	else{
+		DELAY_COUNT = DELAY_COUNT_DEFAULT;
 		systick.CTRL |= 5;//Startar klockan för att få hur länge det tar att dra saker, men stänger av interrupt
 		draw_objects();
 		int sys_val = systick.VAL;//Tar hur länge det tog att rita
@@ -98,6 +101,7 @@ void render_frame(void)
 		setup_ms_delay();
 		systick.VAL += sys_val;//För alltså over delayen från hur lange det var att rita till nästa omgång for that smooth 60 FPS experience
 	}
+	return;
 }
 
 
@@ -130,10 +134,9 @@ void main(void)
 	graphic_initalize();
 	graphic_clear_screen();
 	init_app();
-	update_paddle_speed();
 	setup_ms_delay();
 	while(1){
-		
+		update_paddle_speed();
 		p -> move(p);
 		q -> move(q);
 	}

@@ -38,7 +38,6 @@ void move_paddelobject (POBJECT o){
 	int dy = o -> diry;
 	int x = o -> posx;
 	int y = o -> posy;
-	clear_object(o);
 	o -> posx = x + (o->dirx);
 	o -> posy = y + (o->diry);
 	if(o->posy < 1){
@@ -63,7 +62,6 @@ void set_object_speed(POBJECT o, int speedx, int speedy){
 void move_ballobject (POBJECT o){
 	int x = o->posx;
 	int y = o->posy;
-	clear_object(o);
 	o -> posx = x + (o->dirx);
 	o -> posy = y + (o->diry);
 	int c= 65 - (o -> geo -> sizex);	

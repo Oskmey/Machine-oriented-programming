@@ -12,7 +12,7 @@ int pixel_overlap(POBJECT o1, POBJECT o2);
 static OBJECT paddle1 = {
 	&paddle_geometry,
 	0,0,
-	122,32,
+	22,32,
 	draw_object,
 	clear_object,
 	move_paddelobject,
