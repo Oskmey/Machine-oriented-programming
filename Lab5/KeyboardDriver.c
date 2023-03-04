@@ -8,7 +8,7 @@ KB_PORT KB_HIGH = {&PORT_D.IDRHIGH, &PORT_D.ODRHIGH};
 
 int kbdGetCol(KB_PORT* port){
 	unsigned char c; 
-	c = *(port->IN); //rad värdet placeras i c 
+	c = *(port->IN); //rad värdet placeras i c. Syntax/10 on these pointers. -MT
 	if(c & 0x8) return 4;
 	if(c & 0x4) return 3;
 	if(c & 0x2) return 2;
