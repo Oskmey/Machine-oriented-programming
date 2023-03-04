@@ -68,11 +68,7 @@ void move_ballobject (POBJECT o){
 	clear_object(o);
 	o -> posx = x + (o->dirx);
 	o -> posy = y + (o->diry);
-	int c= 65 - (o -> geo -> sizex);
-	if(o->posx < 1){
-		o->dirx = (- o->dirx);
-	}
-	
+	int c= 65 - (o -> geo -> sizex);	
 	if(o->posy < 1){
 		o->diry = (- o->diry);
 	}
@@ -86,18 +82,13 @@ int pixel_overlap(POBJECT o1, POBJECT o2) {
 	int offset1y = o1 -> posy;
 	int offset2x = o2->posx;
 	int offset2y = o2->posy;
-	int sizexo1 = o1 -> geo-> sizex + offset1x;
-	int sizeyo1 = o1 -> geo-> sizey + offset1y;
-	int sizexo2 = o2 -> geo-> sizex + offset2x;
-	int sizeyo2 = o2 -> geo-> sizey + offset2y;
-	if( (sizexo1 >= offset2x) && ( offset1y <= sizeyo2) 
-  /*for (int i = 0; i < o1->geo->numpoints; i++) {
-    for (int j = 0; j < o2-> geo->numpoints; j++)
-      if ((offset1x + o1->geo->px[i].x == offset2x + o2->geo->px[j].x) &&
-        (offset1y + o1->geo->px[i].y == offset2y + o2->geo->px[j].y)) return 1;
-  }
-  return 0;
-}*/
+	if ( (offset1x < offset2x +4) && (offset2x < offset1x + 5)){
+		if(( offset1y < offset2y +4) && ( offset2y < offset1y+9){
+			o2 ->set_speed(o2, -(o2->dirx), (o2->diry))
+		}
+	}
+
+
 
 
 //______Things____________________________________________________________________________________________
