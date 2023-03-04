@@ -7,7 +7,6 @@ KB_PORT KB_LOW = {&PORT_D.IDRLOW, &PORT_D.ODRLOW};
 KB_PORT KB_HIGH = {&PORT_D.IDRHIGH, &PORT_D.ODRHIGH};
 
 int kbdGetCol(KB_PORT* port){
-	int kbdGetCol(void){
 	unsigned char c; 
 	c = *(port->IN); //rad värdet placeras i c 
 	if(c & 0x8) return 4;
@@ -15,8 +14,6 @@ int kbdGetCol(KB_PORT* port){
 	if(c & 0x2) return 2;
 	if(c & 0x1) return 1;
 	return 0; 
-		
-	}
 }
 
 void kdbActivate(unsigned int row, KB_PORT* port) { //hjälp rutin (MULTIPLEX SAKER FATTAR EJ)
