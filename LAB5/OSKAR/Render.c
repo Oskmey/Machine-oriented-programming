@@ -4,8 +4,7 @@
 
 /* Pong_logic____________________________________________________________________________________________________________________________*/
 
-void draw_object(POBJECT o)
-{
+void draw_object(POBJECT o){
 	PGEOMETRY geo = o->geo;
 	POINT *point_list = geo->px;
 	int pixels = geo->numpoints;
@@ -19,8 +18,7 @@ void draw_object(POBJECT o)
 	}
 }
 
-void clear_object(POBJECT o)
-{
+void clear_object(POBJECT o){
 	PGEOMETRY geo = o->geo;
 	POINT *point_list = geo->px;
 	int pixels = geo->numpoints;
@@ -83,45 +81,12 @@ int pixel_overlap(POBJECT o1, POBJECT o2) {
 	int offset2x = o2->posx;
 	int offset2y = o2->posy;
 	if ( (offset1x < offset2x +4) && (offset2x < offset1x + 5)){
-		if(( offset1y < offset2y +4) && ( offset2y < offset1y+9){
-			o2 ->set_speed(o2, -(o2->dirx), (o2->diry))
-		}
+		if((offset1y < offset2y + 4) && (offset2y < offset1y + 9)) {
+			o2->set_object_speed(o2, -(o2->dirx), (o2->diry));
+}
 	}
-
-
+}
 
 
 //______Things____________________________________________________________________________________________
 
-OBJECT paddle1 = {
-	&paddle_geometry,
-	0,0,
-	122,32,
-	draw_object,
-	clear_object,
-	move_paddelobject,
-	set_object_speed,
-};
-
-
-OBJECT paddle2 = {
-	&paddle_geometry,
-	0,0,
-	122,32,
-	draw_object,
-	clear_object,
-	move_paddelobject,
-	set_object_speed,
-};
-
-
-
-OBJECT ball = {
-	&ball_geometry,
-	4,1,
-	10,32,
-	draw_object,
-	clear_object,
-	move_ballobject,
-	set_object_speed
-};

@@ -24,9 +24,9 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 #define DELAY_COUNT_DEFAULT (1/FPS)*1000000
 #define MICRO_SEC 168
 
-POBJECT p = &paddl1;
+POBJECT p = &paddle1;
 POBJECT q = &paddle2;
-POBJECT b = &ball;
+POBJECT b = &ball; 
 
 
 typedef struct{
@@ -34,6 +34,11 @@ typedef struct{
 	char right_score;
 
 }SCORE;
+
+typedef struct{
+	char x;
+	char y;
+}KB_DIR;
 
 
 SCORE score = {0, 0};
@@ -43,6 +48,35 @@ draw_objects(){
 	draw_object(p);
 	draw_object(q);
 	draw_object(b);
+}
+
+KB_DIR* translate_KB(char input){
+	KB_DIR output = {0,0};
+	switch(input){
+		case 1:output.y = -3;
+		break;
+		
+		case 9:output.y = 3;
+		break;
+		
+		case 5:
+		//Reset?
+		break;
+		
+		default: 
+		break;
+	}
+	
+	return &output;
+}
+
+void update_paddle_speed(void)
+{
+	KB_DIR* dir = translate_KB(keyb(0));
+	int c = dir -> x;
+	p->set_object_speed(p, dir->x, dir->y);
+	KB_DIR* dir2 = translate_KB(keyb(1));
+	q->set_object_speed(q, dir2->x, dir2->y);
 }
 
 
@@ -67,7 +101,7 @@ void render_frame(void)
 
 
 void init_GPIO(void){
-	PORT_D.MODER = 0x55005555; //Gör D 8-15 till en inport och 0-7 till utport;
+	PORT_D.MODER = 0x55005500; //Gör D 8-15 till en inport och 0-7 till utport;
 	PORT_D.PUPDR= 0x00AA0000; // sätter 10 (pull-down ger 1 då kretsen är sluten) på varje 8-15 pin floating på 0-7
 	PORT_D.OSPEEDR = 0x55555555;  // port D medium speed	
 	*((unsigned long *) 0x40023830) = 0x18; // starta klockor port D och E
@@ -95,8 +129,10 @@ void main(void)
 	graphic_initalize();
 	graphic_clear_screen();
 	init_app();
+	update_paddle_speed();
 	while(1){
+		
 		p -> move(p);
-		q -> move(p);
+		q -> move(q);
 	}
 };
