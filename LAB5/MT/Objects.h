@@ -1,4 +1,6 @@
 #pragma once
+
+
 //____Struct______________________________________________________________________________________________________________________________
 typedef struct{
 	char x,y;
@@ -25,7 +27,7 @@ typedef struct{
 	void (* draw)(struct tObj *); //Funktionspekare alltså där vi gör pass by reference 
 	void (* clear)(struct tObj *);
 	void (* move)(struct tObj *);
-	void (* set_speed)(struct tObj *, int,int);
+	void (* set_object_speed)(struct tObj *, int,int);
 }OBJECT, *POBJECT;
 
 typedef struct polygonpoint{

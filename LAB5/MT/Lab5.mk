@@ -70,7 +70,7 @@ ARM_M4SFPLIB:=$(CodeLiteDir)/tools/gcc-arm/arm-none-eabi/lib/thumb/v7e-m+fp/soft
 ARM_GCC_M4SFPLIB:=$(CodeLiteDir)/tools/gcc-arm/lib/gcc/arm-none-eabi/9.2.1/thumb/v7e-m+fp/softfp
 ARM_M4HFPLIB:=$(CodeLiteDir)/tools/gcc-arm/arm-none-eabi/lib/thumb/v7e-m+fp/hard
 ARM_GCC_M4HFPLIB:=$(CodeLiteDir)/tools/gcc-arm/lib/gcc/arm-none-eabi/9.2.1/thumb/v7e-m+fp/hard
-Objects0=$(IntermediateDirectory)/GPIO.c$(ObjectSuffix) $(IntermediateDirectory)/Displaydriver.c$(ObjectSuffix) $(IntermediateDirectory)/KeyboardDriver.c$(ObjectSuffix) $(IntermediateDirectory)/startup.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IntermediateDirectory)/Displaydriver.c$(ObjectSuffix) $(IntermediateDirectory)/Render.c$(ObjectSuffix) $(IntermediateDirectory)/Delay.c$(ObjectSuffix) $(IntermediateDirectory)/GPIO.c$(ObjectSuffix) $(IntermediateDirectory)/AsciiDisplayDriver.c$(ObjectSuffix) $(IntermediateDirectory)/KeyboardDriver.c$(ObjectSuffix) 
 
 
 
@@ -107,13 +107,13 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/GPIO.c$(ObjectSuffix): GPIO.c $(IntermediateDirectory)/GPIO.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/GPIO.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GPIO.c$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/GPIO.c$(DependSuffix): GPIO.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GPIO.c$(ObjectSuffix) -MF$(IntermediateDirectory)/GPIO.c$(DependSuffix) -MM GPIO.c
+$(IntermediateDirectory)/startup.c$(ObjectSuffix): startup.c $(IntermediateDirectory)/startup.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/startup.c$(DependSuffix): startup.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/startup.c$(ObjectSuffix) -MF$(IntermediateDirectory)/startup.c$(DependSuffix) -MM startup.c
 
-$(IntermediateDirectory)/GPIO.c$(PreprocessSuffix): GPIO.c
-	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GPIO.c$(PreprocessSuffix) GPIO.c
+$(IntermediateDirectory)/startup.c$(PreprocessSuffix): startup.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/startup.c$(PreprocessSuffix) startup.c
 
 $(IntermediateDirectory)/Displaydriver.c$(ObjectSuffix): Displaydriver.c $(IntermediateDirectory)/Displaydriver.c$(DependSuffix)
 	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/Displaydriver.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Displaydriver.c$(ObjectSuffix) $(IncludePath)
@@ -123,6 +123,38 @@ $(IntermediateDirectory)/Displaydriver.c$(DependSuffix): Displaydriver.c
 $(IntermediateDirectory)/Displaydriver.c$(PreprocessSuffix): Displaydriver.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Displaydriver.c$(PreprocessSuffix) Displaydriver.c
 
+$(IntermediateDirectory)/Render.c$(ObjectSuffix): Render.c $(IntermediateDirectory)/Render.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/Render.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Render.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Render.c$(DependSuffix): Render.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Render.c$(ObjectSuffix) -MF$(IntermediateDirectory)/Render.c$(DependSuffix) -MM Render.c
+
+$(IntermediateDirectory)/Render.c$(PreprocessSuffix): Render.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Render.c$(PreprocessSuffix) Render.c
+
+$(IntermediateDirectory)/Delay.c$(ObjectSuffix): Delay.c $(IntermediateDirectory)/Delay.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/Delay.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Delay.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Delay.c$(DependSuffix): Delay.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Delay.c$(ObjectSuffix) -MF$(IntermediateDirectory)/Delay.c$(DependSuffix) -MM Delay.c
+
+$(IntermediateDirectory)/Delay.c$(PreprocessSuffix): Delay.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Delay.c$(PreprocessSuffix) Delay.c
+
+$(IntermediateDirectory)/GPIO.c$(ObjectSuffix): GPIO.c $(IntermediateDirectory)/GPIO.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/GPIO.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GPIO.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/GPIO.c$(DependSuffix): GPIO.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GPIO.c$(ObjectSuffix) -MF$(IntermediateDirectory)/GPIO.c$(DependSuffix) -MM GPIO.c
+
+$(IntermediateDirectory)/GPIO.c$(PreprocessSuffix): GPIO.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GPIO.c$(PreprocessSuffix) GPIO.c
+
+$(IntermediateDirectory)/AsciiDisplayDriver.c$(ObjectSuffix): AsciiDisplayDriver.c $(IntermediateDirectory)/AsciiDisplayDriver.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/AsciiDisplayDriver.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/AsciiDisplayDriver.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/AsciiDisplayDriver.c$(DependSuffix): AsciiDisplayDriver.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/AsciiDisplayDriver.c$(ObjectSuffix) -MF$(IntermediateDirectory)/AsciiDisplayDriver.c$(DependSuffix) -MM AsciiDisplayDriver.c
+
+$(IntermediateDirectory)/AsciiDisplayDriver.c$(PreprocessSuffix): AsciiDisplayDriver.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/AsciiDisplayDriver.c$(PreprocessSuffix) AsciiDisplayDriver.c
+
 $(IntermediateDirectory)/KeyboardDriver.c$(ObjectSuffix): KeyboardDriver.c $(IntermediateDirectory)/KeyboardDriver.c$(DependSuffix)
 	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/KeyboardDriver.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/KeyboardDriver.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/KeyboardDriver.c$(DependSuffix): KeyboardDriver.c
@@ -130,14 +162,6 @@ $(IntermediateDirectory)/KeyboardDriver.c$(DependSuffix): KeyboardDriver.c
 
 $(IntermediateDirectory)/KeyboardDriver.c$(PreprocessSuffix): KeyboardDriver.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/KeyboardDriver.c$(PreprocessSuffix) KeyboardDriver.c
-
-$(IntermediateDirectory)/startup.c$(ObjectSuffix): startup.c $(IntermediateDirectory)/startup.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "C:/Users/J/Documents/Documents/Lab5/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/startup.c$(DependSuffix): startup.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/startup.c$(ObjectSuffix) -MF$(IntermediateDirectory)/startup.c$(DependSuffix) -MM startup.c
-
-$(IntermediateDirectory)/startup.c$(PreprocessSuffix): startup.c
-	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/startup.c$(PreprocessSuffix) startup.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

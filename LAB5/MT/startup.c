@@ -24,9 +24,9 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 #define DELAY_COUNT_DEFAULT (1/FPS)*1000000
 #define MICRO_SEC 168
 
-POBJECT p = &paddl1;
+POBJECT p = &paddle1;
 POBJECT q = &paddle2;
-POBJECT b = &ball;
+POBJECT b = &ball; 
 
 
 typedef struct{
@@ -50,17 +50,14 @@ draw_objects(){
 	draw_object(b);
 }
 
-KB_DIR* translate_KB(char input)
-{
-	KB_DIR output;
-	switch(input)
-	{
-		case 1:
-		output = {0, -3};
+KB_DIR* translate_KB(char input){
+	KB_DIR dir = {0,0};
+	KB_DIR* output = &dir;
+	switch(input){
+		case 1:output->y = -3;
 		break;
 		
-		case 9:
-		output = {0, 3};
+		case 9:output->y = 3;
 		break;
 		
 		case 5:
@@ -68,19 +65,19 @@ KB_DIR* translate_KB(char input)
 		break;
 		
 		default: 
-		output = {0, 0};
 		break;
 	}
 	
-	return &output;
+	return output;
 }
 
 void update_paddle_speed(void)
 {
 	KB_DIR* dir = translate_KB(keyb(0));
-	p->set_object_speed(p, KB_DIR->x, KB_DIR->y);
-	KB_DIR* dir = translate_KB(keyb(1));
-	q->set_object_speed(q, KB_DIR->x, KB_DIR->y);
+	int c = dir -> x;
+	p->set_object_speed(p, dir->x, dir->y);
+	KB_DIR* dir2 = translate_KB(keyb(1));
+	q->set_object_speed(q, dir2->x, dir2->y);
 }
 
 
@@ -130,10 +127,11 @@ void init_app(void)//Kasta in vad mer behövs för att starta här
 
 void main(void)
 {
-	update_paddle_speed();
 	graphic_initalize();
 	graphic_clear_screen();
 	init_app();
+	update_paddle_speed();
+	setup_ms_delay();
 	while(1){
 		
 		p -> move(p);
