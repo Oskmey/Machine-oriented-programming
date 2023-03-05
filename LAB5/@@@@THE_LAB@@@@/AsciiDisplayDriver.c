@@ -3,6 +3,24 @@
 #include "AsciiDisplayDriver.h"
 #include "GPIO.h"
 
+void ascii_text_generator(void){
+	char* s;
+	char player1[] = "PLAYER 1:";
+	char player2[] = "PLAYER 2:";
+	if(*s){ //goal
+		s = player1;
+		while (*s){
+		ascii_write_char (*s++);
+		}
+	ascii_gotoxy(1,2);
+	s = player2;
+	
+	while (*s){
+		ascii_write_char (*s++);
+		}
+		return 0;
+	}
+}
 
 void ascii_init(void){
 	delay_milli(1);

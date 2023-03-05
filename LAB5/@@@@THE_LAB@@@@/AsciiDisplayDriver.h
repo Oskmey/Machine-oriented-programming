@@ -4,6 +4,7 @@
 #define B_SELECT 4
 #define B_RW 2
 #define B_RS 1
+void ascii_text_generator(void);
 void ascii_init(void);
 void ascii_write_cmd(unsigned char cmd);
 void ascii_write_data(unsigned char data);

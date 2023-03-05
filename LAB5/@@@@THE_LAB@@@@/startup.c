@@ -8,6 +8,7 @@
 #include "Geometry.h"
 #include "Delay.h"
 #include "SYSTICK.h"
+#include "AsciiDisplayDriver.h"
 __attribute__((naked)) __attribute__((section (".start_section")) )
 void startup ( void )
 {
@@ -50,8 +51,16 @@ char update_paddle(char Keyboard){
 	char c = keyb(Keyboard);
 }
 
+
+void wtf_function(void){
+    // Send clear screen command to LCD display
+    ascii_ctrl_bit_set(B_RS); // Set RS high to select data register
+    ascii_write_data(0x04); // Send clear screen command to LCD display
+    delay_milli(2);
+}
+
 void draw_objects(void){
-	graphic_clear_screen();
+	wtf_function();
 	draw_object(p);
 	draw_object(q);
 	draw_object(b);
@@ -124,8 +133,11 @@ void main(void){
 	char c;
 	char k;	
 	graphic_initalize();
-	graphic_clear_screen();
+	PORT_E.ODRLOW = 0;
 	init_app();
+	ascii_init();
+	ascii_gotoxy(1,1);
+	ascii_text_generator();
 	setup_ms_delay();
 	while(1){
 		p->move(p);
