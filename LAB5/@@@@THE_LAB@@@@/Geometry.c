@@ -6,6 +6,10 @@ void draw_object(POBJECT o)
 	POINT *point_list = geo->px;
 	int pixels = geo->numpoints;
 	int x = o->posx;
+	if( x > 50000){ //Codlite tycker om att ge skit stora värden!!! randomly så stacken går sönder?
+		o -> posx = 2;
+		o -> posy = 64-9;
+	}
 	int y = o->posy;
 	for(int i = 0; i < pixels; i++){
 		POINT pixel = point_list[i];
@@ -36,7 +40,6 @@ void move_paddelobject (POBJECT o){
 	int dy = o -> diry;
 	int x = o -> posx;
 	int y = o -> posy;
-	clear_object(o);
 	o -> posx = x + (o->dirx);
 	o -> posy = y + (o->diry);
 	if(o->posy < 1){
@@ -61,7 +64,6 @@ void set_object_speed(POBJECT o, int speedx, int speedy){
 void move_ballobject (POBJECT o){
 	int x = o->posx;
 	int y = o->posy;
-	clear_object(o);
 	o -> posx = x + (o->dirx);
 	o -> posy = y + (o->diry);
 	int c= 65 - (o -> geo -> sizex);

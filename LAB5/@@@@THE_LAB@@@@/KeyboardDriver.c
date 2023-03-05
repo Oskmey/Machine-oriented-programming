@@ -67,8 +67,3 @@ char keyb(char HIGH){
 
 
 
-char update_paddle_speed(char Keyboard1, char Keyboard2 ){
-	char c = keyb(Keyboard1);
-	char k = keyb(Keyboard2);
-	return c, k;
-}

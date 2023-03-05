@@ -25,7 +25,7 @@ int DELAY_COUNT = 0;
 POBJECT p = &paddle1;
 POBJECT q = &paddle2;
 POBJECT b = &ball; 
-	
+POBJECT l = &line;
 
 #define SBC_VTOR (volatile unsigned int*) 0xE000ED08
 #define FPS 60
@@ -46,16 +46,28 @@ void set_port_keyboards(char POS[]){
 	}
 }
 
+char update_paddle(char Keyboard){
+	char c = keyb(Keyboard);
+}
 
 void draw_objects(void){
 	graphic_clear_screen();
 	draw_object(p);
 	draw_object(q);
 	draw_object(b);
+	draw_object(l);
+}
+
+void render_frame(void){
+	systick.CTRL = 0; 
+	systick.VAL= 0;
+	systick.CTRL |= 5;
+	draw_objects(); 
+	setup_ms_delay();
 }
 
 
-void render_frame(void){
+/*void render_frame(void){
 	int delay_count = DELAY_COUNT;
 	systick.CTRL = 0;
 	systick.VAL = 0;
@@ -63,7 +75,7 @@ void render_frame(void){
 		DELAY_COUNT--;
 		setup_ms_delay();
 	}
-		else{
+	else{
 		DELAY_COUNT = DELAY_COUNT_DEFAULT;
 		systick.CTRL |= 5;//Startar klockan för att få hur länge det tar att dra saker, men stänger av interrupt
 		draw_objects();
@@ -72,10 +84,10 @@ void render_frame(void){
 		setup_ms_delay();
 		systick.VAL += sys_val;//För alltså over delayen från hur lange det var att rita till nästa omgång for that smooth 60 FPS experience
 	}
-}
+} */
 
 
-void translate_key(char c, char Keyboard2){
+void translate_key(char c,POBJECT p ){
 			switch(c){
 			case 4:		p->set_speed(p, 0, -3); //upp
 				break;
@@ -110,7 +122,9 @@ void init_app(void){
 
 void main(void){
 	char c;
-	char k;
+	char k;	
+	graphic_initalize();
+	graphic_clear_screen();
 	init_app();
 	setup_ms_delay();
 	while(1){
@@ -125,10 +139,10 @@ void main(void){
 			b -> diry =	(b -> diry);
 		}
 		b->move(b);
-		delay_milli(20);
-		c, k= uppdate_paddle_speed(Keyboard1,Keyboard2);
-		translate_key(c,Keyboard1);
-		translate_key(k,Keyboard2);
+		c = update_paddle(Keyboard1);
+		k = update_paddle(Keyboard2);
+		translate_key(c,p);
+		translate_key(k,q);
 	}
 }
 
