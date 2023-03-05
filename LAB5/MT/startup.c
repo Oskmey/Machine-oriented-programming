@@ -21,7 +21,7 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 }
 
 #define FPS 60
-#define DELAY_COUNT_DEFAULT (500/FPS)
+#define DELAY_COUNT_DEFAULT (5000/FPS)
 #define MICRO_SEC 168
 
 POBJECT p = &paddle1;
