@@ -5,6 +5,7 @@
 #define B_RW 2
 #define B_RS 1
 
+
 char ascii_text_generator(char SCR1, char SCR2);
 void ascii_init(void);
 void ascii_write_cmd(unsigned char cmd);

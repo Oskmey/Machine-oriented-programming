@@ -21,7 +21,7 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 static volatile char Keyboard1;
 static volatile char Keyboard2;
 char SCORE1 = 0;
-char SCORE2 = 0;
+char SCORE2 = 9;
 
 int DELAY_COUNT = 0;
 

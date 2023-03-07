@@ -2,31 +2,42 @@
 #include "GPIO.h"
 
 char ascii_text_generator(char SCR1, char SCR2){
+	char won = 0;
 	char* s;
 	char player1[] = "PLAYER 1: X";
 	char player2[] = "PLAYER 2: X";
+	char player1winner[] = "PLAYER 1: WINNER";
+	char player2winner[] = "PLAYER 2: WINNER";
 	char numbers[] = "0123456789";
 	player1[10] = numbers[SCR1];
 	player2[10] = numbers[SCR2];
-	if(SCR1 >= 10){
-		char player1[] = "PLAYER 1: WINNER";
-		char player2[] = "PLAYER 2: LOSER";
-	}
-	if(SCR2 >= 10){
-		char player1[] = "PLAYER 1: LOSER";
-		char player2[] = "PLAYER 2: WINNER";
-	}
 	ascii_gotoxy(1,1);
 	if(*s){ //goal
-		s = player1;
+		if(SCR1 >= 10){
+			s = player1winner;
+			won = 1;
+		}
+		else {
+			s = player1;
+		}
+		
 		while (*s){
 		ascii_write_char (*s++);
 		}
+		
 	ascii_gotoxy(1,2);
-	s = player2;
-	
+	if(SCR2 >= 10){
+			s = player2winner;
+			won = 1;
+		}
+	else {
+		s = player2;
+	}
 	while (*s){
 		ascii_write_char (*s++);
+		}
+		while(won){
+			
 		}
 		return 0;
 	}
