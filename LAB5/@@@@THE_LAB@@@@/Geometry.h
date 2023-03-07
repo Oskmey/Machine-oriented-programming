@@ -1,8 +1,6 @@
 #pragma once
-
-
-char* SCORE1;
-char* SCORE2;
+extern char SCORE1;
+extern char SCORE2;
 char GOAL;
 
 typedef struct{

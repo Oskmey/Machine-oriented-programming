@@ -1,1 +1,1 @@
-Debug/startup.c.o Debug/Geometry.c.o Debug/Delay.c.o Debug/GraphicDriver.c.o Debug/AsciiDisplayDriver.c.o Debug/KeyboardDriver.c.o   
+Debug/Geometry.c.o Debug/Delay.c.o Debug/AsciiDisplayDriver.c.o Debug/KeyboardDriver.c.o Debug/GraphicDriver.c.o Debug/startup.c.o   

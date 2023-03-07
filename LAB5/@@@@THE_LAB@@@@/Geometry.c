@@ -75,11 +75,11 @@ void move_ballobject (POBJECT o){
 	o -> posy = y + (o->diry);
 	int c= 65 - (o -> geo -> sizex);
 	if( o->posx < 1){
-		*SCORE1 += 0x01;
+		SCORE1 += 0x01;
 		GOAL = 1;
 	}
 	if( o ->posx > 120){
-		*SCORE2 += 0x01;
+		SCORE2 += 0x01;
 		GOAL = 1;
 	}
 	if(o->posy < 1){

@@ -5,7 +5,7 @@
 #define B_RW 2
 #define B_RS 1
 
-char ascii_text_generator(char* SCORE1, char* SCORE2);
+char ascii_text_generator(char SCR1, char SCR2);
 void ascii_init(void);
 void ascii_write_cmd(unsigned char cmd);
 void ascii_write_data(unsigned char data);
