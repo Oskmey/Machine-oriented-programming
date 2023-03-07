@@ -1,4 +1,3 @@
-
 #include "Geometry.h"
 #include "AsciiDisplayDriver.h"
 

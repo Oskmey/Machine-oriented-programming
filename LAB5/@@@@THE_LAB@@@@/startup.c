@@ -75,9 +75,9 @@ void collision_check(void){
 	if(GOAL){
 		graphic_clear_screen();
 		ascii_text_generator(SCORE1, SCORE2);
-		p->posx = 122;
+		p->posx = 112;
 		p->posy = 32;
-		q->posx= 2;
+		q->posx= 12;
 		q->posy = 32;
 		b->posx = 64;
 		b ->posy =32;

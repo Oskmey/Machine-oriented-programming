@@ -86,7 +86,7 @@ static OBJECT line = {
 static OBJECT paddle1 = {
 	&paddle_geometry,
 	0,0,
-	122,32,
+	112,32,
 	draw_object,
 	clear_object,
 	move_paddelobject,
@@ -97,7 +97,7 @@ static OBJECT paddle1 = {
 static OBJECT paddle2 = {
 	&paddle_geometry,
 	0,0,
-	2,32,
+	12,32,
 	draw_object,
 	clear_object,
 	move_paddelobject,
@@ -113,4 +113,3 @@ static OBJECT ball = {
 	move_ballobject,
 	set_object_speed
 };
-

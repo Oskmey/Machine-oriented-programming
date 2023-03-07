@@ -1,5 +1,3 @@
-
-
 #include "AsciiDisplayDriver.h"
 #include "GPIO.h"
 
@@ -10,6 +8,14 @@ char ascii_text_generator(char SCR1, char SCR2){
 	char numbers[] = "0123456789";
 	player1[10] = numbers[SCR1];
 	player2[10] = numbers[SCR2];
+	if(SCR1 >= 10){
+		char player1[] = "PLAYER 1: WINNER";
+		char player2[] = "PLAYER 2: LOSER";
+	}
+	if(SCR2 >= 10){
+		char player1[] = "PLAYER 1: LOSER";
+		char player2[] = "PLAYER 2: WINNER";
+	}
 	ascii_gotoxy(1,1);
 	if(*s){ //goal
 		s = player1;
