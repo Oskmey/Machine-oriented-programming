@@ -37,7 +37,7 @@ void delay_micro(unsigned int us){
 void setup_ms_delay(void)
 {
 	systick.CTRL &= -(7);//Gör det såhär om vi ska använda andra bits
-	systick.LOAD = 20000 - 1;  //Man får typ fixa så att det ser bra ut på MD407 6000 är på gränsen. Måste typ ha 28000 för att kunna hinna att flytta  
+	systick.LOAD = 16800 - 1;  //Man får typ fixa så att det ser bra ut på MD407 6000 är på gränsen. Måste typ ha 28000 för att kunna hinna att flytta  
 	systick.VAL = 0;
 	systick.CTRL = 7;
 }

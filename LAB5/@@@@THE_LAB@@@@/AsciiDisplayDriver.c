@@ -3,10 +3,14 @@
 #include "AsciiDisplayDriver.h"
 #include "GPIO.h"
 
-void ascii_text_generator(void){
+char ascii_text_generator(char* SCORE1, char* SCORE2){
 	char* s;
-	char player1[] = "PLAYER 1:";
-	char player2[] = "PLAYER 2:";
+	char player1[] = "PLAYER 1: X";
+	char player2[] = "PLAYER 2: X";
+	char numbers[] = "0123456789";
+	player1[10] = numbers[*SCORE1];
+	player2[10] = numbers[*SCORE2];
+	ascii_gotoxy(1,1);
 	if(*s){ //goal
 		s = player1;
 		while (*s){

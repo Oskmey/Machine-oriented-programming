@@ -1,7 +1,9 @@
 #pragma once
 
 
-
+char* SCORE1 = 0;
+char* SCORE2 = 0;
+char GOAL;
 
 typedef struct{
 	char x,y;
@@ -107,7 +109,7 @@ static OBJECT paddle2 = {
 static OBJECT ball = {
 	&ball_geometry,
 	4,1,
-	10,32,
+	64,32,
 	draw_object,
 	clear_object,
 	move_ballobject,

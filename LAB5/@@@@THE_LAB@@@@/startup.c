@@ -34,7 +34,6 @@ POBJECT l = &line;
 #define MICRO_SEC 168
 
 
-
 void set_port_keyboards(char POS[]){
 	//Set high or low here
 	if(POS == "HIGH"){
@@ -52,26 +51,46 @@ char update_paddle(char Keyboard){
 }
 
 
-void wtf_function(void){
-    // Send clear screen command to LCD display
-    ascii_ctrl_bit_set(B_RS); // Set RS high to select data register
-    ascii_write_data(0x04); // Send clear screen command to LCD display
-    delay_milli(2);
+
+
+
+void move_paddles(void){
+		p->move(p);
+		q->move(q);
 }
 
-void draw_objects(void){
-	wtf_function();
-	draw_object(p);
-	draw_object(q);
-	draw_object(b);
-	draw_object(l);
+void collision_check(void){
+	if(pixel_overlap(p,b)){
+			b -> dirx = (- b -> dirx);
+			b -> diry =	(b -> diry);
+		}
+	if(pixel_overlap(q,b)){
+			b -> dirx = (- b -> dirx);
+			b -> diry =	(b -> diry);
+		}
+	b->move(b);
+	
+	if(GOAL){
+		graphic_clear_screen();
+		ascii_text_generator(SCORE1, SCORE2);
+		p->posx = 122;
+		p->posy = 32;
+		q->posx= 2;
+		q->posy = 32;
+		b->posx = 64;
+		b ->posy =32;
+		GOAL = 0;
+	}
+	
 }
 
 void render_frame(void){
 	systick.CTRL = 0; 
 	systick.VAL= 0;
 	systick.CTRL |= 5;
-	draw_objects(); 
+	collision_check();
+	move_paddles();
+	draw_object(l);
 	setup_ms_delay();
 }
 
@@ -133,24 +152,13 @@ void main(void){
 	char c;
 	char k;	
 	graphic_initalize();
-	PORT_E.ODRLOW = 0;
+	graphic_clear_screen();
 	init_app();
 	ascii_init();
 	ascii_gotoxy(1,1);
-	ascii_text_generator();
+	ascii_text_generator(SCORE1,SCORE2);
 	setup_ms_delay();
 	while(1){
-		p->move(p);
-		q->move(q);
-		if(pixel_overlap(p,b)){
-			b -> dirx = (- b -> dirx);
-			b -> diry =	(b -> diry);
-		}
-		if(pixel_overlap(q,b)){
-			b -> dirx = (- b -> dirx);
-			b -> diry =	(b -> diry);
-		}
-		b->move(b);
 		c = update_paddle(Keyboard1);
 		k = update_paddle(Keyboard2);
 		translate_key(c,p);

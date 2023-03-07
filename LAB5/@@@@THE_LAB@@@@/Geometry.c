@@ -1,5 +1,9 @@
 
 #include "Geometry.h"
+#include "AsciiDisplayDriver.h"
+
+
+
 void draw_object(POBJECT o)
 {
 	PGEOMETRY geo = o->geo;
@@ -36,6 +40,7 @@ void clear_object(POBJECT o)
 
 
 void move_paddelobject (POBJECT o){
+	clear_object(o);
 	int dx = o -> dirx;
 	int dy = o -> diry;
 	int x = o -> posx;
@@ -50,6 +55,7 @@ void move_paddelobject (POBJECT o){
 		o->diry = 0;
 		o->posy = 64-9;
 	}
+	draw_object(o);
 }
 
 void set_object_speed(POBJECT o, int speedx, int speedy){
@@ -62,21 +68,27 @@ void set_object_speed(POBJECT o, int speedx, int speedy){
 
 
 void move_ballobject (POBJECT o){
+	clear_object(o);
 	int x = o->posx;
 	int y = o->posy;
 	o -> posx = x + (o->dirx);
 	o -> posy = y + (o->diry);
 	int c= 65 - (o -> geo -> sizex);
-	if(o->posx < 1){
-		o->dirx = (- o->dirx);
+	if( o->posx < 1){
+		*SCORE1 += 0x01;
+		GOAL = 1;
 	}
-	
+	if( o ->posx > 120){
+		*SCORE2 += 0x01;
+		GOAL = 1;
+	}
 	if(o->posy < 1){
 		o->diry = (- o->diry);
 	}
 	if(o->posy > 60){
 		o->diry = (- o->diry);
 	}
+	draw_object(o);
 }
 
 int cross_points(POINT point, POINT upper_left, POINT bottom_right)
