@@ -1,23 +1,60 @@
-#include "GPIO.h"
-#include "Delay.h"
 #include "AsciiDisplayDriver.h"
-#define B_E 0x40
-#define B_SELECT 4
-#define B_RW 2
-#define B_RS 1
+#include "GPIO.h"
 
+char ascii_text_generator(char SCR1, char SCR2){
+	char won = 0;
+	char* s;
+	char player1[] = "PLAYER 1: X";
+	char player2[] = "PLAYER 2: X";
+	char player1winner[] = "PLAYER 1: WINNER";
+	char player2winner[] = "PLAYER 2: WINNER";
+	char numbers[] = "0123456789";
+	player1[10] = numbers[SCR1];
+	player2[10] = numbers[SCR2];
+	ascii_gotoxy(1,1);
+	if(*s){ //goal
+		if(SCR1 >= 10){
+			s = player1winner;
+			won = 1;
+		}
+		else {
+			s = player1;
+		}
+		
+		while (*s){
+		ascii_write_char (*s++);
+		}
+		
+	ascii_gotoxy(1,2);
+	if(SCR2 >= 10){
+			s = player2winner;
+			won = 1;
+		}
+	else {
+		s = player2;
+	}
+	while (*s){
+		ascii_write_char (*s++);
+		}
+		while(won){
+			
+		}
+		return 0;
+	}
+}
 
 void ascii_init(void){
 	delay_milli(1);
 	ascii_write_cmd(0x38);
 	delay_milli(1);
-	ascii_write_cmd(0xe);
+	ascii_write_cmd(0xf);
 	delay_milli(1);
-	ascii_clear_display();
+	clear_display();
 	delay_milli(2);
 	ascii_write_cmd(6);
 	delay_milli(2);
 }
+
 
 void ascii_write_cmd(unsigned char cmd){
 	ascii_ctrl_bit_clear( B_RS );
@@ -33,6 +70,8 @@ void ascii_write_data(unsigned char data){
 	ascii_write_controller(data);
 }
 
+
+
 char ascii_read_controller( void ){
 	PORT_E.MODER = 0x00005555;
 	char c;
@@ -41,7 +80,7 @@ char ascii_read_controller( void ){
 	delay_250ns();
 	c = PORT_E.IDRHIGH;
 	ascii_ctrl_bit_clear( B_E );
-	PORT_E.MODER = 0x55555555;
+	PORT_E.MODER  = 0x55555555;
 	return c;
 }
 
@@ -87,7 +126,7 @@ void ascii_ctrl_bit_clear( char x ){ /* x: bitmask bits are 1 to clear */
 	PORT_E.ODRLOW = B_SELECT | c;
 }
 
-void ascii_clear_display(){
+void clear_display(){
 	while((ascii_read_status() & 0x80)== 0x80 );
 	delay_micro(8);
 	ascii_write_cmd(1);

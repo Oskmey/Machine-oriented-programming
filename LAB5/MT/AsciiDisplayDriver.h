@@ -1,4 +1,12 @@
 #pragma once
+
+#define B_E 0x40
+#define B_SELECT 4
+#define B_RW 2
+#define B_RS 1
+
+
+char ascii_text_generator(char SCR1, char SCR2);
 void ascii_init(void);
 void ascii_write_cmd(unsigned char cmd);
 void ascii_write_data(unsigned char data);
@@ -8,6 +16,6 @@ char ascii_read_status( void );
 char ascii_read_data( void );
 void ascii_ctrl_bit_set( unsigned char x );
 void ascii_ctrl_bit_clear( char x );
-void ascii_clear_display();
+void clear_display(void);
 void ascii_write_char(unsigned char data);
 void ascii_gotoxy( int x, int y);

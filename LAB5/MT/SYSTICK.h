@@ -1,5 +1,6 @@
-#pragma once
-#define systick (*((volatile SYSTICK*) 0xE000E010))  
+ss#pragma once
+#define systick (*((volatile SYSTICK*) 0xE000E010)) 
+
 typedef volatile struct{
 	union{
 		unsigned int CTRL;
